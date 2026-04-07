@@ -13,6 +13,7 @@
             --natural-bg: #fdfaf5;
             --white: #ffffff;
             --fssai-blue: #00529b;
+            --star-color: #ffcc00;
         }
 
         * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -78,6 +79,11 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- REVIEWS --- */
+        .review-card { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--premium-gold); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .stars { color: var(--star-color); font-size: 18px; }
+        .review-form { background: #f4eee1; padding: 30px; border-radius: 15px; margin-top: 40px; }
+
         /* --- SATISFACTION BOX --- */
         .guarantee-box {
             background: var(--white);
@@ -109,7 +115,7 @@
             margin-bottom: 15px;
         }
 
-        /* --- FSSAI TRUST STRIP --- */
+        /* --- TRUST STRIP --- */
         .trust-strip {
             background: #fff;
             padding: 20px;
@@ -124,7 +130,7 @@
 
         .fssai-box { border: 2px solid var(--fssai-blue); color: var(--fssai-blue); padding: 5px 10px; font-weight: 900; font-size: 20px; }
 
-        /* --- BUTTONS --- */
+        /* --- BUTTONS & INPUTS --- */
         .cta-btn {
             background: var(--primary-green);
             color: white;
@@ -134,7 +140,10 @@
             cursor: pointer;
             letter-spacing: 1px;
             text-transform: uppercase;
+            text-align: center;
         }
+
+        input, textarea, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; }
 
         .card img { width: 100%; height: 350px; object-fit: cover; margin-bottom: 20px; }
 
@@ -143,8 +152,6 @@
             background: rgba(20, 38, 28, 0.9); z-index: 2000; justify-content: center; align-items: center;
         }
         .modal-content { background: var(--natural-bg); padding: 40px; max-width: 450px; width: 90%; text-align: center; border-radius: 8px; }
-        
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
 
         footer { background: var(--primary-green); color: #d1d1d1; padding: 60px 8%; text-align: center; }
     </style>
@@ -166,6 +173,7 @@
         <nav>
             <a onclick="showPage('home')">Home</a>
             <a onclick="showPage('shop')">Shop</a>
+            <a onclick="showPage('reviews')">Reviews</a>
             <a onclick="showPage('referral')">Refer & Earn</a>
             <a onclick="openModal('accountModal')">My Account</a>
         </nav>
@@ -175,6 +183,9 @@
         <div style="text-align: center; max-width: 900px; margin: 0 auto;">
             <h1 style="font-size: 3.5rem;">Pure Ingredients. Pure Life.</h1>
             <p style="font-size: 1.2rem; color: var(--leaf-green);">Crafted with the Manbhari "Nature-to-Nutrient" promise.</p>
+            <div style="margin: 20px 0;">
+                <span class="stars">★★★★★</span> <span style="font-size: 14px;">(4.9/5 Trust Rating)</span>
+            </div>
         </div>
 
         <div class="trust-strip">
@@ -188,14 +199,12 @@
         <div class="guarantee-box">
             <h2 style="color: var(--leaf-green);">✨ 100% Satisfaction Guarantee ✨</h2>
             <p>At Manbhari, if the aroma doesn't fill your kitchen or the taste doesn't remind you of home, we take it back. **No questions asked.**</p>
-            <p style="font-size: 14px; color: #666;">We guarantee that our spices are sun-dried, ground without artificial heat, and contain <strong>zero</strong> fillers, sawdust, or synthetic colors. Only the soul of the spice remains.</p>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-top: 50px;">
             <img src="garam masala1.jpeg" style="width: 100%; border-radius: 15px;" alt="Manbhari Quality">
             <div>
                 <h2>The Manbhari Difference</h2>
-                <p>Most commercial spices lose their medicinal properties during high-speed grinding. Manbhari uses <strong>Cool-Touch Processing</strong>.</p>
                 <ul style="line-height: 2;">
                     <li><strong>Small Batches:</strong> Ground fresh every week.</li>
                     <li><strong>Vacuum Sealed:</strong> Locks in the essential oils.</li>
@@ -212,15 +221,31 @@
             <div class="card" style="background: white; border: 1px solid #ddd; padding: 20px; text-align: center;">
                 <img src="garam masala 2.jpeg" alt="Garam Masala">
                 <h3>Premium Garam Masala (100gm)</h3>
-                <p style="color: #666; font-size: 14px;">Masterfully blended. FSSAI Approved.</p>
                 <div style="font-size: 24px; color: var(--leaf-green); margin: 15px 0;">₹1</div>
                 <button class="cta-btn" onclick="openModal('paymentModal')" style="width: 100%;">Buy Now</button>
             </div>
-            
-            <div class="card" style="opacity: 0.5; display: flex; flex-direction: column; justify-content: center; border: 1px dashed #ccc; padding: 20px; text-align: center;">
-                <h3>Organic Snacks</h3>
-                <p>Coming Soon</p>
+        </div>
+    </div>
+
+    <div id="reviews" class="page">
+        <h2 style="text-align: center;">Customer Stories</h2>
+        <div id="reviewsList">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Best aroma I've found in Patna. The ₹1 sample convinced me!"</p>
+                <strong>— Rajesh S.</strong>
             </div>
+        </div>
+
+        <div class="review-form">
+            <h3>Leave a Review</h3>
+            <input type="text" id="revName" placeholder="Your Name">
+            <select id="revStars">
+                <option value="5">5 Stars - Amazing</option>
+                <option value="4">4 Stars - Good</option>
+            </select>
+            <textarea id="revText" rows="3" placeholder="Tell us about the taste..."></textarea>
+            <button class="cta-btn" onclick="submitReview()">Post Review</button>
         </div>
     </div>
 
@@ -228,16 +253,7 @@
         <div class="referral-card">
             <div class="referral-badge">SHARE THE FLAVOR</div>
             <h1>Refer a Friend, Get ₹25 Off</h1>
-            <p style="font-size: 1.2rem; max-width: 600px; margin: 20px auto;">Share the gift of organic purity. When your friend makes their first purchase, <strong>both of you</strong> receive a ₹25 discount voucher for your next order!</p>
-            <div style="margin-top: 30px;">
-                <input type="text" id="refLink" value="https://manbhari.in/ref?user=SHYAM123" readonly style="width: 300px; background: rgba(255,255,255,0.1); color: white; border: 1px solid var(--premium-gold); text-align: center;">
-                <br><br>
-                <button class="cta-btn" style="background: var(--premium-gold); color: var(--primary-green);" onclick="alert('Referral Link Copied!')">Copy My Referral Link</button>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 30px;">
-            <h3>How it works</h3>
-            <p>1. Send your link to a friend. <br> 2. They place an order. <br> 3. You get ₹25 credited to your Manbhari wallet!</p>
+            <button class="cta-btn" style="background: var(--premium-gold); color: var(--primary-green);" onclick="alert('Link Copied!')">Copy My Referral Link</button>
         </div>
     </div>
 
@@ -245,38 +261,37 @@
         <div class="modal-content">
             <span style="cursor:pointer; float:right; font-size: 20px;" onclick="closeModal('accountModal')">×</span>
             <h2>Welcome Back</h2>
-            <input type="text" placeholder="Full Name">
             <input type="tel" placeholder="Mobile Number">
-            <input type="password" placeholder="Password">
-            <button class="cta-btn" style="width:100%;" onclick="alert('Account Created!')">Sign Up</button>
+            <button class="cta-btn" style="width:100%;" onclick="alert('Logged In!')">Continue</button>
         </div>
     </div>
 
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span style="cursor:pointer; float:right; font-size: 24px;" onclick="closeModal('paymentModal')">×</span>
-            <h2 style="margin-bottom: 10px;">Order Checkout</h2>
-            <p style="color: #666;">Secure Transaction via Razorpay</p>
-            <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <p><strong>Item:</strong> Premium Garam Masala</p>
+            <h2>Checkout</h2>
+            <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: left;">
+                <p><strong>Item:</strong> Garam Masala Sample</p>
                 <p><strong>Total:</strong> ₹1</p>
             </div>
-            <a href="YOUR_RAZORPAY_LINK_HERE" target="_blank" style="text-decoration: none;">
-                <button class="cta-btn" style="width:100%;">Securely Pay Now</button>
+            
+            <a href="upi://pay?pa=787080251@upi&pn=Manbhari%20Snacks&am=1&cu=INR&tn=Sample%20Order" 
+               style="text-decoration: none; display: block; margin-bottom: 10px;">
+                <button class="cta-btn" style="width:100%; background: #008cff;">Pay via UPI App</button>
             </a>
-            <p style="font-size: 11px; color: #888; margin-top: 15px;">Support: 7870820251</p>
+
+            <a href="https://wa.me/917870820251?text=Hi!%20I%20just%20paid%20₹1%20for%20the%20sample.%20Here%20is%20my%20address:" 
+               target="_blank" style="text-decoration: none; display: block;">
+                <button class="cta-btn" style="width:100%; background: #25D366;">Send Address on WhatsApp</button>
+            </a>
+            <p style="font-size: 11px; color: #888; margin-top: 15px;">UPI ID: 787080251@upi</p>
         </div>
     </div>
 
     <footer>
         <div style="font-size: 30px; font-family: 'Playfair Display'; color: var(--premium-gold);">MANBHARI</div>
         <p>100% Organic • FSSAI Lic No: 30251201122387879</p>
-        <div style="margin: 20px 0;">
-            <p>📞 <strong>7870820251</strong> | ✉️ manbhari555a@gmail.com</p>
-        </div>
-        <div style="font-size: 11px; opacity: 0.6; border-top: 1px solid #2a3d33; padding-top: 20px;">
-            &copy; 2026 Manbhari Organic Snacks & Spices.
-        </div>
+        <p>📞 <strong>7870820251</strong></p>
     </footer>
 
     <script>
@@ -297,6 +312,18 @@
 
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function submitReview() {
+            const name = document.getElementById('revName').value;
+            const text = document.getElementById('revText').value;
+            const stars = "★".repeat(document.getElementById('revStars').value);
+            if(!name || !text) return alert("Fill all fields");
+            
+            const html = `<div class="review-card"><div class="stars">${stars}</div><p>"${text}"</p><strong>— ${name}</strong></div>`;
+            document.getElementById('reviewsList').insertAdjacentHTML('afterbegin', html);
+            document.getElementById('revName').value = ""; document.getElementById('revText').value = "";
+            alert("Review added!");
+        }
 
         window.onload = () => { showPage('home'); };
     </script>
