@@ -94,27 +94,6 @@
             text-align: center;
         }
 
-        /* --- REFERRAL SECTION --- */
-        .referral-card {
-            background: linear-gradient(to right, #1b3022, #3a5a40);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin: 40px 0;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .referral-badge {
-            background: var(--premium-gold);
-            color: var(--primary-green);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
         /* --- TRUST STRIP --- */
         .trust-strip {
             background: #fff;
@@ -151,7 +130,7 @@
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(20, 38, 28, 0.9); z-index: 2000; justify-content: center; align-items: center;
         }
-        .modal-content { background: var(--natural-bg); padding: 40px; max-width: 450px; width: 90%; text-align: center; border-radius: 8px; }
+        .modal-content { background: var(--natural-bg); padding: 40px; max-width: 450px; width: 90%; text-align: center; border-radius: 8px; max-height: 90vh; overflow-y: auto; }
 
         footer { background: var(--primary-green); color: #d1d1d1; padding: 60px 8%; text-align: center; }
     </style>
@@ -249,42 +228,31 @@
         </div>
     </div>
 
-    <div id="referral" class="page">
-        <div class="referral-card">
-            <div class="referral-badge">SHARE THE FLAVOR</div>
-            <h1>Refer a Friend, Get ₹25 Off</h1>
-            <button class="cta-btn" style="background: var(--premium-gold); color: var(--primary-green);" onclick="alert('Link Copied!')">Copy My Referral Link</button>
-        </div>
-    </div>
-
-    <div id="accountModal" class="modal">
-        <div class="modal-content">
-            <span style="cursor:pointer; float:right; font-size: 20px;" onclick="closeModal('accountModal')">×</span>
-            <h2>Welcome Back</h2>
-            <input type="tel" placeholder="Mobile Number">
-            <button class="cta-btn" style="width:100%;" onclick="alert('Logged In!')">Continue</button>
-        </div>
-    </div>
-
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span style="cursor:pointer; float:right; font-size: 24px;" onclick="closeModal('paymentModal')">×</span>
-            <h2>Checkout</h2>
-            <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: left;">
-                <p><strong>Item:</strong> Garam Masala Sample</p>
-                <p><strong>Total:</strong> ₹1</p>
+            <h2 style="margin-bottom: 5px;">Checkout</h2>
+            <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Follow steps to confirm order</p>
+
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left; border: 1px solid #eee;">
+                <p style="margin: 5px 0;"><strong>Item:</strong> Garam Masala Sample</p>
+                <p style="margin: 5px 0;"><strong>Total:</strong> ₹1</p>
             </div>
             
+            <p style="font-weight: 600; font-size: 14px; text-align: left;">Step 1: Pay via UPI</p>
             <a href="upi://pay?pa=787080251@upi&pn=Manbhari%20Snacks&am=1&cu=INR&tn=Sample%20Order" 
-               style="text-decoration: none; display: block; margin-bottom: 10px;">
-                <button class="cta-btn" style="width:100%; background: #008cff;">Pay via UPI App</button>
+               style="text-decoration: none; display: block; margin-bottom: 20px;">
+                <button class="cta-btn" style="width:100%; background: #008cff; font-size: 14px;">Open UPI App (GPay/PhonePe)</button>
             </a>
 
-            <a href="https://wa.me/917870820251?text=Hi!%20I%20just%20paid%20₹1%20for%20the%20sample.%20Here%20is%20my%20address:" 
-               target="_blank" style="text-decoration: none; display: block;">
-                <button class="cta-btn" style="width:100%; background: #25D366;">Send Address on WhatsApp</button>
-            </a>
-            <p style="font-size: 11px; color: #888; margin-top: 15px;">UPI ID: 787080251@upi</p>
+            <div style="border-top: 1px dashed #ccc; padding-top: 15px; text-align: left;">
+                <p style="font-weight: 600; font-size: 14px;">Step 2: Upload Payment Screenshot</p>
+                <input type="file" id="payScreenshot" accept="image/*" style="font-size: 12px; margin-bottom: 10px;">
+                
+                <button class="cta-btn" onclick="confirmPayment()" style="width:100%; background: var(--premium-gold); margin-bottom: 10px;">Confirm & Send Address</button>
+            </div>
+
+            <p style="font-size: 11px; color: #888; margin-top: 10px;">UPI ID: 787080251@upi</p>
         </div>
     </div>
 
@@ -312,6 +280,21 @@
 
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function confirmPayment() {
+            const screenshot = document.getElementById('payScreenshot').files[0];
+            if (!screenshot) {
+                alert("Please upload your payment screenshot to verify the order.");
+                return;
+            }
+            
+            // Redirect to WhatsApp with address prompt
+            const whatsappUrl = "https://wa.me/917870820251?text=Hi%20Manbhari!%20I%20have%20paid%20₹1%20for%20the%20Garam%20Masala%20sample.%20I%20am%20sending%20the%20screenshot%20now.%20Please%20deliver%20to%20this%20address:";
+            window.open(whatsappUrl, '_blank');
+            
+            alert("Verification initiated! Please send the screenshot on the WhatsApp chat that just opened.");
+            closeModal('paymentModal');
+        }
 
         function submitReview() {
             const name = document.getElementById('revName').value;
